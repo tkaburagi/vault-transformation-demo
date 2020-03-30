@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: vault-tokenization-demoapp
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/handson?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver

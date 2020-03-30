@@ -1,0 +1,9 @@
+spring.cloud.vault:
+  token: s.zTBJe2IgA033w7tPVmQVOYgz
+  scheme: http
+  host: 127.0.0.1
+  port: 8200
+  database:
+    enabled: true
+    role: role-demoapp
+    backend: database
