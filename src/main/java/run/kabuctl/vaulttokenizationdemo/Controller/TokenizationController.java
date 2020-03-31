@@ -74,4 +74,17 @@ public class TokenizationController {
         u.setFlag("transformation");
         return userJpaRepository.save(u);
     }
+
+    @PostMapping(value = "/api/v1/simple-transform/add-user")
+    public Object addOneSimpleTransformedUser(@RequestParam String username, String password, String email, String creditcard)  {
+        TransitUtil transitUtil = new TransitUtil();
+        TokenizationUtil tokenizationUtil = new TokenizationUtil();
+        u.setId(UUID.randomUUID().toString());
+        u.setUsername(username);
+        u.setPassword(transitUtil.encrypt(password));
+        u.setEmail(tokenizationUtil.transform(email, "transform-email-to-numericandupper"));
+        u.setCreditcard(tokenizationUtil.transform(creditcard, "transform-to-numericupper"));
+        u.setFlag("transformation");
+        return userJpaRepository.save(u);
+    }
 }
