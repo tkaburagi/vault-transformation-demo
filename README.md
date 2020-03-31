@@ -101,34 +101,43 @@ value=141@-8@/5-=,+1-064.
 
 #### For Email
 
+Encrypt the local part of email, preserv first and last character:
+
 1. Create Alphabet
 ```
-$ vault write transform/alphabet/symbolnumericalpha \
+$ vault write transform/alphabet/localemailaddress \
 alphabet="0123456789._%+~#@&/,=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 ```
 
 2. Create Template
 ```
-$ vault write transform/template/email-to-symbolnumericalpha \
-type=regex \
-pattern='([0-9A-Za-z._%+~#@&/,=$]{1,100})@([0-9A-Za-z._%+~#@&/,=$]{1,100})' \
-alphabet=symbolnumericalpha
+$ vault write transform/template/email-template \
+type=regex pattern='.(.*).@.*' \
+alphabet=localemailaddress
+
 ```
 
 3. Create Transform
 ```
-$ vault write transform/transformation/transform-to-symbolnumericalpha \
-type=fpe \
-template=email-to-symbolnumericalpha \
-tweak_source=internal \
-allowed_roles=payments
+$ vault write transform/transformation/email \
+type=fpe template=email-template \
+tweak_source=internal allowed_roles=payments
+
 ```
 
-4. Test
+4. Allow role
 ```
-$ vault write transform/encode/payments \
-transformation=transform-to-symbolnumericalpha \
-value=kabu@hashicorp.com
+$ vault write transform/role/payments transformations=email
+```
+
+5. Test
+```
+$ vault write transform/encode/payments value='citizensmith@gmail.com' transformation=email
+$ vault write transform/encode/payments value='citizen.smith@gmail.com' transformation=email
+$ vault write transform/encode/payments value='citizen_smith@gmail.com' transformation=email
+$ vault write transform/encode/payments value='_citizensmith@gmail.com' transformation=email
+$ vault write transform/encode/payments value='citizensmith_@gmail.com' transformation=email
 ```
 
 ### Replace the Vault Token
