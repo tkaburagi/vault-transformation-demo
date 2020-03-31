@@ -9,6 +9,10 @@ This demo is not for showing how to use Vault token, so policy settings and hand
   <img src="https://raw.githubusercontent.com/tkaburagi/vault-tokenization-demo/master/pic.png">
 </kbd>
 
+## UI APP
+
+https://github.com/tkaburagi/vault-tokenization-demo-ui
+
 ## App Image
 <kbd>
   <img src="https://raw.githubusercontent.com/tkaburagi/vault-tokenization-demo/master/pic2.png">
