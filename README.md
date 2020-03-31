@@ -62,28 +62,28 @@ Enable and Configure Transformation
 
 1. Create Alphabet
 ```
-$ vault write transform/alphabet/symbolnumeric \
-alphabet="0123456789._%+~#@&/,=$"
+$ vault write transform/alphabet/creditcardnum \
+alphabet="0123456789"
 ```
 
 2. Create Role
 ```
-$ vault write transform/role/payments transformations=creditcard-to-symbolnumeric
+$ vault write transform/role/payments transformations=creditcard
 ```
 
 3. Create Template
 ```
-$ vault write transform/template/creditcard-to-symbolnumeric \
+$ vault write transform/template/creditcard-template \
 type=regex \
-pattern='([0-9A-Z._%+~#@&/,=$]{4})-([0-9A-Z._%+~#@&/,=$]{4})-([0-9A-Z._%+~#@&/,=$]{4})-([0-9A-Z._%+~#@&/,=$]{4})' \
-alphabet=symbolnumeric
+pattern='\d([0-9]{3})-([0-9]{4})-([0-9]{4})-\d\d\d\d' \
+alphabet=creditcardnum
 ```
 
 4. Create Transform
 ```
-$ vault write transform/transformation/transform-to-symbolnumeric \
+$ vault write transform/transformation/creditcard \
 type=fpe \
-template=creditcard-to-symbolnumeric \
+template=creditcard-template \
 tweak_source=internal \
 allowed_roles=payments
 ```
@@ -91,12 +91,12 @@ allowed_roles=payments
 5. Test
 ```
 $ vault write transform/encode/payments \
-transformation=transform-to-symbolnumeric \
+transformation=creditcard \
 value=1234-4321-5678-4567
 
 $ ault write transform/decode/payments \
-transformation=transform-to-symbolnumeric \
-value=141@-8@/5-=,+1-064.
+transformation=creditcard \
+value=1033-2321-1057-4567
 ```
 
 #### For Email
