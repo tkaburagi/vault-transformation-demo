@@ -60,6 +60,8 @@ Enable and Configure Transformation
 
 #### For Credit Card Number
 
+Reserve the first digit and last four.
+
 1. Create Alphabet
 ```
 $ vault write transform/alphabet/creditcardnum \
