@@ -11,4 +11,7 @@ import java.util.List;
 public interface UserJpaRepository extends JpaRepository<User, String> {
     @Query("SELECT u FROM User u where u.flag = :flag")
     List<User> findUsersByFlag(String flag);
+
+    @Query("SELECT u FROM User u where u.username = :username")
+    User findUserByUsername(String username);
 }

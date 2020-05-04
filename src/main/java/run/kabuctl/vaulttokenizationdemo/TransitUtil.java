@@ -37,5 +37,22 @@ public class TransitUtil {
         return jsonObject.getJSONObject("data").getString("ciphertext");
     }
 
+    public String decrypt(String ciphertext) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("X-Vault-Token", "s.zTBJe2IgA033w7tPVmQVOYgz");
+
+        Map<String, Object> input = new LinkedHashMap<>();
+        input.put("ciphertext", ciphertext);
+
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(input, headers);
+
+        ResponseEntity<String> response = this.restTemplate().postForEntity("http://127.0.0.1:8200/v1/transit/decrypt/my-key", entity, String.class);
+        JSONObject jsonObject = new JSONObject(response.getBody());
+
+        return jsonObject.getJSONObject("data").getString("plaintext");
+    }
+
 
 }
