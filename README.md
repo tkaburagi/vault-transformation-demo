@@ -70,7 +70,7 @@ EOF
 
 $ vault policy write payments configs/policies/payments.hcl
 
-$ VAULT_TOKEN_TRANS=$(vault token create -format=json -policy=payments | jq -r '.auth.client_token')
+$ export VAULT_TOKEN_TRANS=$(vault token create -format=json -policy=payments | jq -r '.auth.client_token')
 ```
 
 Enable and Configure Transformation

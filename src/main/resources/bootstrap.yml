@@ -7,3 +7,4 @@ spring.cloud.vault:
     enabled: true
     role: role-demoapp
     backend: database
+
