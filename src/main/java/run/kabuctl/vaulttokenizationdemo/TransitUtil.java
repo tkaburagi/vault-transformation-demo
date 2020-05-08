@@ -1,6 +1,7 @@
 package run.kabuctl.vaulttokenizationdemo;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,11 +21,14 @@ public class TransitUtil {
         return new RestTemplate();
     }
 
+    @Value("${VAULT_TOKEN_TRANS}")
+    private String token;
+
     public String encrypt(String plaintext) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("X-Vault-Token", "s.zTBJe2IgA033w7tPVmQVOYgz");
+        headers.set("X-Vault-Token", token);
 
         Map<String, Object> input = new LinkedHashMap<>();
         input.put("plaintext", Base64.getEncoder().encodeToString(plaintext.getBytes()));
@@ -41,7 +45,7 @@ public class TransitUtil {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("X-Vault-Token", "s.zTBJe2IgA033w7tPVmQVOYgz");
+        headers.set("X-Vault-Token", token);
 
         Map<String, Object> input = new LinkedHashMap<>();
         input.put("ciphertext", ciphertext);
