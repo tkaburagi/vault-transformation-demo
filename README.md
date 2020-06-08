@@ -23,6 +23,7 @@ https://github.com/tkaburagi/vault-tokenization-demo-ui
 * Starting MySQL
 * Installing Java 8
 * Running Vault 1.4 Ent
+* Replacing the Vault Token in the src/main/resources/bootstrap.yml
 
 ### MySQL Setup
 
